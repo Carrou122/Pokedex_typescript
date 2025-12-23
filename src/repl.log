@@ -1,0 +1,7 @@
+
+> pokedex_typescript@1.0.0 dev
+> npx tsc && node dist/main.js
+
+Welcome to the Pokedex!
+Pokedex > Do you need any help?
+Pokedex > Closing the Pokedex... Goodbye!
