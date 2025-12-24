@@ -1,5 +1,3 @@
-import readline from "node:readline";
-import { getCommands } from "./commands.js";
 export function cleanInput(input) {
     return input
         .toLowerCase()
@@ -7,29 +5,23 @@ export function cleanInput(input) {
         .split(/\s+/)
         .filter((w) => w.length > 0);
 }
-export function startREPL() {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        prompt: "Pokedex > ",
-    });
-    const commands = getCommands();
+export function startREPL(state) {
     console.log("Welcome to the Pokedex!");
-    rl.prompt();
-    rl.on("line", (line) => {
+    state.readline.prompt();
+    state.readline.on("line", (line) => {
         const words = cleanInput(line);
         if (words.length === 0) {
-            rl.prompt();
+            state.readline.prompt();
             return;
         }
         const commandName = words[0];
-        const command = commands[commandName];
+        const command = state.commands[commandName];
         if (command) {
-            command.callback(commands);
+            command.callback(state);
         }
         else {
             console.log("Unknown command");
         }
-        rl.prompt();
+        state.readline.prompt();
     });
 }
