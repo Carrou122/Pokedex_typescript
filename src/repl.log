@@ -2,6 +2,9 @@
 > pokedex_typescript@1.0.0 dev
 > npx tsc && node dist/main.js
 
-Welcome to the Pokedex!
-Pokedex > Do you need any help?
-Pokedex > Closing the Pokedex... Goodbye!
+src/commands.ts(12,7): error TS2322: Type '(state: State) => void' is not assignable to type '(state: State) => Promise<void>'.
+  Type 'void' is not assignable to type 'Promise<void>'.
+src/commands.ts(17,7): error TS2322: Type '(state: State) => void' is not assignable to type '(state: State) => Promise<void>'.
+  Type 'void' is not assignable to type 'Promise<void>'.
+src/pokeapi.ts(6,43): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.
+src/pokeapi.ts(10,46): error TS2355: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.

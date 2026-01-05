@@ -14,7 +14,7 @@ export function cleanInput(input: string): string[]{
 export function startREPL(state: State): void{
   console.log("Welcome to the Pokedex!");
   state.readline.prompt();
-  state.readline.on("line", (line: string) => {
+  state.readline.on("line", async (line: string) => {
     const words = cleanInput(line)
     if (words.length === 0) {
       state.readline.prompt();
@@ -23,7 +23,11 @@ export function startREPL(state: State): void{
     const commandName = words[0];
     const command = state.commands[commandName];
     if (command){
-      command.callback(state)
+      try {
+      await command.callback(state);
+      } catch (err){
+        console.log("Error:", (err as Error).message);
+      }
     } else {
       console.log("Unknown command");
     }
