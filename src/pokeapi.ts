@@ -19,7 +19,7 @@ export class PokeAPI {
       }
 
       const locations: ShallowLocations = await resp.json();
-      this.cache.add(url, location);
+      this.cache.add(url, locations);
       return locations;
     } catch (e) {
       throw new Error(`Error fetching locations: ${(e as Error).message}`);
@@ -28,7 +28,7 @@ export class PokeAPI {
 
   async fetchLocation(locationName: string): Promise<Location> {
     const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
-    const cached = this.cache.get<Locations>(url);
+    const cached = this.cache.get<Location>(url);
     if (cached) return cached;
     try {
       const resp = await fetch(url);
@@ -45,6 +45,14 @@ export class PokeAPI {
         `Error fetching location '${locationName}': ${(e as Error).message}`,
       );
     }
+  }
+
+  async fetchPokemon(areaName: string): Promise<string[]>{
+    const location = await this.fetchLocation(areaName);
+    const names = location.pokemon_encounters.map((encounter)=>{
+      return encounter.pokemon.name;
+    });
+    return names;
   }
 }
 
