@@ -7,7 +7,7 @@ export async function commandExplore(state: State, ...args: string[]){
     return;
     }
     console.log(`Exploring ${areaName}...`);
-  const pokemonNames = await state.pokeapi.fetchPokemon(areaName);
+  const pokemonNames = await state.pokeAPI.fetchLocationPokemon(areaName);
   console.log("Found Pokemon:");
   for (const name of pokemonNames){
     console.log(` - ${name}`);

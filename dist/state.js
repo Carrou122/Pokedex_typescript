@@ -8,12 +8,13 @@ export function initState() {
         prompt: "Pokedex > ",
     });
     const commands = getCommands();
-    const pokeapi = new PokeAPI();
+    const pokeAPI = new PokeAPI();
     return {
         readline: rl,
-        commands: commands,
-        pokeapi: pokeapi,
+        commands,
+        pokeAPI,
         nextLocationsURL: null,
         prevLocationsURL: null,
+        caughtPokemon: {},
     };
 }

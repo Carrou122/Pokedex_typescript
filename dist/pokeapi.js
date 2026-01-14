@@ -41,11 +41,29 @@ export class PokeAPI {
             throw new Error(`Error fetching location '${locationName}': ${e.message}`);
         }
     }
-    async fetchPokemon(areaName) {
+    async fetchLocationPokemon(areaName) {
         const location = await this.fetchLocation(areaName);
         const names = location.pokemon_encounters.map((encounter) => {
             return encounter.pokemon.name;
         });
         return names;
+    }
+    async fetchPokemon(pokemonName) {
+        const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`;
+        const cached = this.cache.get(url);
+        if (cached)
+            return cached;
+        try {
+            const resp = await fetch(url);
+            if (!resp.ok) {
+                throw new Error(`${resp.status} ${resp.statusText}`);
+            }
+            const pokemon = await resp.json();
+            this.cache.add(url, pokemon);
+            return pokemon;
+        }
+        catch (e) {
+            throw new Error(`Error fetching pokemon '${pokemonName}': ${e.message}`);
+        }
     }
 }
