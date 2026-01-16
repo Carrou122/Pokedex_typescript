@@ -4,6 +4,7 @@ import { commandMap } from "./command_map.js";
 import { commandMapBack } from "./command_mapb.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
+import { commandInspect } from "./command_inspect.js";
 export function getCommands() {
     return {
         exit: {
@@ -36,5 +37,10 @@ export function getCommands() {
             description: "Catching a pokemon",
             callback: commandCatch,
         },
+        inspect: {
+            name: "inspect",
+            description: "Inspecting a pokemon",
+            callback: commandInspect,
+        }
     };
 }
